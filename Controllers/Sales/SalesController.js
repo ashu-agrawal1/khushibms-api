@@ -15,8 +15,10 @@ const decreaseStock = async (products) => {
     if (!product) {
       throw new Error(`Product with ID ${productId} not found!`);
     }
-    if (!process.env.NEGATIVE_STOCK && product.stock < quantity) {
-      throw new Error(`Insufficient stock for product with ID ${productId}!`);
+    if (process.env.NEGATIVE_STOCK == "false" && product.stock < quantity) {
+      const error = new Error(`Insufficient stock for product with ID ${productId}!`);
+      error.code = "Insufficient stock";
+      throw error;
     }
 
     // Add to bulk operations

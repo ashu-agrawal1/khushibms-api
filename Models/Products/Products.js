@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true, // Ensures no duplicate product names
+    // unique: true, // Ensures no duplicate product names
     trim: true,
   },
   taxId: {
@@ -12,15 +12,45 @@ const productSchema = new mongoose.Schema({
     ref: "Tax", // References the tax model
     required: true,
   },
+  brandName: {
+    type: String,
+    required: false,
+    trim: true,
+  },
+  hsn: {
+    type: String,
+    required: false,
+    trim: true,
+  },
+  uniqueId: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   category: {
     type: String,
-    required: true,
+    required: false,
+    trim: true,
+  },
+  supplier: {
+    type: String,
+    required: false,
     trim: true,
   },
   sellingPrice: {
     type: Number,
     required: true,
     min: 0, // Price cannot be negative
+  },
+  mrp: {
+    type: Number,
+    required: true,
+    min: 0, // Price cannot be negative
+  },
+  weight: {
+    type: Number,
+    required: false,
+    min: 0,
   },
   description: {
     type: String,

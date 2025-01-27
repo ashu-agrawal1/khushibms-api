@@ -25,12 +25,45 @@ productRouter.post(
   body("category").trim().isString(),
   body("sellingPrice").notEmpty().isNumeric(),
   body("description").trim().isString(),
+  body("brandName").trim().isString(),
+  body("supplier").trim().isString(),
+  body("hsn").trim().isString(),
+  body("uniqueId").trim().isString(),
+  body("mrp").trim().isNumeric(),
+  body("stock").optional().isNumeric(),
+  body("weight").optional().isNumeric(),
   async (req, res) => {
     try {
       const result = validationResult(req);
       if (!result.isEmpty()) return res.status(400).send(result);
-      const { name, taxId, category, sellingPrice, description } = req.body;
-      await createProduct({ name, taxId, category, sellingPrice, description });
+      const {
+        name,
+        taxId,
+        category,
+        sellingPrice,
+        description,
+        brandName,
+        supplier,
+        hsn,
+        uniqueId,
+        mrp,
+        stock,
+        weight,
+      } = req.body;
+      await createProduct({
+        name,
+        taxId,
+        category,
+        sellingPrice,
+        description,
+        brandName,
+        supplier,
+        hsn,
+        uniqueId,
+        mrp,
+        stock,
+        weight,
+      });
       return res.status(200).json({ msg: "success" });
     } catch (err) {
       console.log(err);

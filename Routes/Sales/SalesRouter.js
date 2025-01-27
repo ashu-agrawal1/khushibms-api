@@ -7,7 +7,7 @@ salesRouter.post(
   "/",
   body("products").notEmpty().isArray({ min: 1 }),
   body("products.*").notEmpty().isObject(),
-  body("products.*.quantity").notEmpty().isNumeric({min:1}),
+  body("products.*.quantity").notEmpty().isNumeric({ min: 1 }),
   body("products.*.productId").notEmpty().isString(),
   async (req, res) => {
     try {
@@ -17,6 +17,9 @@ salesRouter.post(
       return res.status(200).json({ msg: "success" });
     } catch (err) {
       console.log(err);
+      if (err.code == "Insufficient stock") {
+        return res.status(400).send(err.message);
+      }
       return res.status(500).send("Something is broke!");
     }
   }

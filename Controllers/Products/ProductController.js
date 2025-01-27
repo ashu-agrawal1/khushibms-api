@@ -2,7 +2,7 @@ const Product = require("../../Models/Products/Products");
 
 const createProduct = async (data) => {
   const newProduct = new Product(data);
-  newProduct.save();
+  return newProduct.save();
 };
 const viewProduct = async () => {
   return await Product.find();
