@@ -32,6 +32,7 @@ productRouter.post(
   body("mrp").trim().isNumeric(),
   body("stock").optional().isNumeric(),
   body("weight").optional().isNumeric(),
+  body("unit").optional().isString(),
   async (req, res) => {
     try {
       const result = validationResult(req);
@@ -49,6 +50,7 @@ productRouter.post(
         mrp,
         stock,
         weight,
+        unit
       } = req.body;
       await createProduct({
         name,
@@ -63,6 +65,7 @@ productRouter.post(
         mrp,
         stock,
         weight,
+        unit
       });
       return res.status(200).json({ msg: "success" });
     } catch (err) {

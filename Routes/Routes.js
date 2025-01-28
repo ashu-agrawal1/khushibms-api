@@ -7,9 +7,14 @@ const productRouter = require("./Products/ProductRouter.js");
 const stockRouter = require("./Stocks/StockRouter");
 const purchaseRouter = require("./Purchase/PurchaseRouter.js");
 const salesRouter = require("./Sales/SalesRouter.js");
+const authenticateUser = require("../Middlewares/Auth.js");
 
 router.get("/", async (req, res) => {
   res.json("hii, welcome");
+});
+
+router.get("/autologin", authenticateUser, async (req, res) => {
+  return res.status(200).json({ success: true });
 });
 
 router.post("/login", async (req, res) => {
@@ -29,11 +34,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.use("/master", masterRouter);
-router.use("/products", productRouter);
-router.use("/stock", stockRouter);
-router.use("/purchase", purchaseRouter);
-router.use("/sales", salesRouter);
+router.use("/master", authenticateUser, masterRouter);
+router.use("/products", authenticateUser, productRouter);
+router.use("/stock", authenticateUser, stockRouter);
+router.use("/purchase", authenticateUser, purchaseRouter);
+router.use("/sales", authenticateUser, salesRouter);
 
 router.get("/logout", async (req, res) => {
   // Destroy the session

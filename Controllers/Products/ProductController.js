@@ -5,7 +5,14 @@ const createProduct = async (data) => {
   return newProduct.save();
 };
 const viewProduct = async () => {
-  return await Product.find();
+  let products = await Product.find().populate("taxId").exec();
+  return products?.map((product) => {
+    const productObj = product.toObject(); // Convert Mongoose document to plain object
+    productObj.taxName = productObj?.taxId?.name;
+    productObj.taxPercentage = productObj?.taxId?.percentage;
+    productObj.tax_id = productObj?.taxId?._id;
+    return productObj;
+  });
 };
 const deleteProduct = async (id) => {
   return await Product.findByIdAndDelete(id);
