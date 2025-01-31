@@ -20,6 +20,14 @@ router.get("/autologin", authenticateUser, async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("puser:", process.env.USER, "ppass:", process.env.PASSWORD);
+    console.log("uiuser:", username, "uipass:", password);
+    console.log(
+      "userres:",
+      username == process.env.USER,
+      "passres:",
+      password == process.env.PASSWORD
+    );
     if (username == process.env.USER && password == process.env.PASSWORD) {
       req.session.user = {
         name: username,
