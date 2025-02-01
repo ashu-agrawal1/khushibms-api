@@ -16,4 +16,4 @@ function connectionDb() {
 		});
 	});
 }
-module.exports = { connectionDb }
+module.exports = { connectionDb } 
