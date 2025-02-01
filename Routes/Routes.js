@@ -12,6 +12,9 @@ const authenticateUser = require("../Middlewares/Auth.js");
 router.get("/", async (req, res) => {
   res.json("hii, welcome");
 });
+router.get("/test", async (req, res) => {
+  res.json("hii, this is new test route");
+});
 
 router.get("/autologin", authenticateUser, async (req, res) => {
   return res.status(200).json({ success: true });
